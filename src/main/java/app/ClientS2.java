@@ -1,3 +1,9 @@
+package app;
+
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -6,10 +12,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Scanner;
 
 
 public class ClientS2 implements ActionListener {
@@ -17,6 +21,8 @@ public class ClientS2 implements ActionListener {
     PrintWriter pout;
     InputStream in;
     BufferedReader bin;
+    private static final Logger logger = LogManager.getLogger(Server.class);
+
 
     public ClientS2() throws UnknownHostException, IOException {
         frame = new Frame("(Not so) secret Chat");
@@ -33,17 +39,21 @@ public class ClientS2 implements ActionListener {
     public static void main(String[] args) throws UnknownHostException, IOException {
         ClientS2 clients2 = new ClientS2();
 
+        // basic log4j configurator
+        BasicConfigurator.configure();
 
         Socket sock = new Socket(InetAddress.getLocalHost(), 6013);
         InputStream in = sock.getInputStream();
         BufferedReader bin = new BufferedReader(new InputStreamReader(in));
         PrintWriter pout = new PrintWriter(sock.getOutputStream(), true);
+        logger.info("connected");
 
         clients2.frame.textFieldWriting.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
                 String message = clients2.frame.textFieldWriting.getText();
                 if (message != null) {
+                    logger.info("client " + message);
                     pout.println(message);
                     clients2.frame.textFieldMyMessage.append(message + "\n");
                     clients2.frame.textFieldWriting.setText(null);
