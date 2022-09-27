@@ -16,7 +16,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 
-public class ClientS2 implements ActionListener {
+public class ClientS2{
     Frame frame;
     PrintWriter pout;
     InputStream in;
@@ -48,19 +48,18 @@ public class ClientS2 implements ActionListener {
         PrintWriter pout = new PrintWriter(sock.getOutputStream(), true);
         logger.info("connected");
 
-        clients2.frame.textFieldWriting.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        clients2.frame.textFieldWriting.addActionListener(e -> {
+            String message = clients2.frame.textFieldWriting.getText();
 
-                String message = clients2.frame.textFieldWriting.getText();
-                if (message != null) {
-                    logger.info("client " + message);
-                    pout.println(message);
-                    clients2.frame.textFieldMyMessage.append(message + "\n");
-                    clients2.frame.textFieldWriting.setText(null);
-                }
-
+            if (message != null) {
+                logger.info("client " + message);
+                pout.println(message);
+                clients2.frame.textFieldMyMessage.append(message + "\n");
+                clients2.frame.textFieldWriting.setText(null);
             }
-        });
+        }
+
+        );
 
         Thread receive = new Thread(new Runnable() {
             String line;
@@ -83,16 +82,11 @@ public class ClientS2 implements ActionListener {
 
     }
 
+    static class Leo implements ActionListener {
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        String message = frame.textFieldWriting.getText();
-        if (message != null) {
-            pout.println(message);
-            frame.textFieldMyMessage.append(message + "\n");
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
         }
-
-
     }
 }

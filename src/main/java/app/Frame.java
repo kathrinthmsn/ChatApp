@@ -1,5 +1,9 @@
 package app;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,12 +13,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class Frame extends JFrame implements ActionListener{
+public class Frame extends JFrame{
     JTextField textFieldWriting = new JTextField();
     JTextArea textFieldMyMessage = new JTextArea(30,25);
     JTextArea textFieldPesantMessage = new JTextArea(30,25);
     JScrollPane jscrollpane = new JScrollPane(textFieldMyMessage);
     JScrollPane jscrollpane2 = new JScrollPane(textFieldPesantMessage);
+
+    private static final Logger logger = LogManager.getLogger(Server.class);
+
 
     public Frame(String title) {
 
@@ -35,7 +42,7 @@ public class Frame extends JFrame implements ActionListener{
 
 
         add(textFieldWriting, BorderLayout.SOUTH);
-        textFieldWriting.addActionListener(this);
+        // textFieldWriting.addActionListener(this);
 
 
         setSize(500, 400);
@@ -43,15 +50,8 @@ public class Frame extends JFrame implements ActionListener{
         setVisible(true);
     }
 
-      public void actionPerformed( ActionEvent evt)
-      {
-        String name = textFieldWriting.getText();
 
-        textFieldMyMessage.append(name +"\n");
-        textFieldWriting.setText(null);
 
-        repaint();
-      }
     public static void main(String []args) {
         Frame frame = new Frame("(Not so) secret chat");
         frame.setVisible(true);
