@@ -13,10 +13,6 @@ import java.net.Socket;
 
 public class Server{
     Frame frame;
-//    ServerSocket server_sock;
-//    Socket client;
-//    PrintWriter pout;
-//    BufferedReader bin;
 
 
     public Server(){
@@ -25,14 +21,10 @@ public class Server{
 
     private static final Logger logger = LogManager.getLogger(Server.class);
 
-
-
-
     public static void main(String args[]) throws IOException {
 
         // basic log4j configurator
         BasicConfigurator.configure();
-
 
 
         Server server = new Server();
@@ -47,37 +39,32 @@ public class Server{
 
         server.frame.textFieldWriting.addActionListener(e -> {
             String message = server.frame.textFieldWriting.getText();
-            if (message!= null) {
+            if (message != null) {
                 logger.info("Server " + message);
 
                 out.println(message);
-                server.frame.textFieldMyMessage.append(message +"\n");
-                server.frame.textFieldWriting.setText(null);}
+                server.frame.textFieldMyMessage.append(message + "\n");
+                server.frame.textFieldWriting.setText(null);
+            }
         });
 
 
-
-
-        Thread receive =new Thread(new Runnable() {
+        Thread receive = new Thread(new Runnable() {
             String line;
+
             public void run() {
 
 
                 try {
-                    while ((line = in.readLine())!= null) {
-                        server.frame.textFieldPesantMessage.append(line + "\n");}
+                    while ((line = in.readLine()) != null) {
+                        server.frame.textFieldFriendMessage.append(line + "\n");
+                    }
                 } catch (IOException e1) {
 
                     e1.printStackTrace();
                 }
-            }});
+            }
+        });
         receive.start();
-
-
-
     }
-
-
-
-
 }

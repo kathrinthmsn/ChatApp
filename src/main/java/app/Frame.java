@@ -1,12 +1,9 @@
 package app;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -16,9 +13,9 @@ import javax.swing.JTextField;
 public class Frame extends JFrame{
     JTextField textFieldWriting = new JTextField();
     JTextArea textFieldMyMessage = new JTextArea(30,25);
-    JTextArea textFieldPesantMessage = new JTextArea(30,25);
+    JTextArea textFieldFriendMessage = new JTextArea(30,25);
     JScrollPane jscrollpane = new JScrollPane(textFieldMyMessage);
-    JScrollPane jscrollpane2 = new JScrollPane(textFieldPesantMessage);
+    JScrollPane jscrollpane2 = new JScrollPane(textFieldFriendMessage);
 
     private static final Logger logger = LogManager.getLogger(Server.class);
 
@@ -33,8 +30,8 @@ public class Frame extends JFrame{
         setLayout(new BorderLayout());
 
         add(jscrollpane2, BorderLayout.WEST);
-        textFieldPesantMessage.setEditable(false);
-        textFieldPesantMessage.setLineWrap(true);
+        textFieldFriendMessage.setEditable(false);
+        textFieldFriendMessage.setLineWrap(true);
 
         add(jscrollpane, BorderLayout.EAST);
         textFieldMyMessage.setEditable(false);
