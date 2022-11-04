@@ -2,9 +2,7 @@ package app;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-
-import java.awt.BorderLayout;
-
+import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -12,6 +10,7 @@ import javax.swing.JTextField;
 
 public class Frame extends JFrame{
     JTextField textFieldWriting = new JTextField();
+    JTextField textFieldName = new JTextField();
     JTextArea textFieldMyMessage = new JTextArea(30,25);
     JTextArea textFieldFriendMessage = new JTextArea(30,25);
     JScrollPane jscrollpane = new JScrollPane(textFieldMyMessage);
@@ -37,9 +36,10 @@ public class Frame extends JFrame{
         textFieldMyMessage.setEditable(false);
         textFieldMyMessage.setLineWrap(true);
 
-
         add(textFieldWriting, BorderLayout.SOUTH);
-        // textFieldWriting.addActionListener(this);
+
+        add(textFieldName, BorderLayout.NORTH);
+        textFieldName.setBackground(Color.ORANGE);
 
 
         setSize(500, 400);
@@ -47,10 +47,10 @@ public class Frame extends JFrame{
         setVisible(true);
     }
 
-
-
     public static void main(String []args) {
         Frame frame = new Frame("(Not so) secret chat");
         frame.setVisible(true);
+
+
     }
 }
