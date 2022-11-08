@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.time.LocalTime;
 
 
 public class Client {
@@ -52,8 +53,9 @@ public class Client {
             String message = frame.textFieldWriting.getText();
 
             if (!message.equals("") && !clientsName.equals("")) {
-                printWriter.println(clientsName + ": "+ message);
-                frame.textFieldMyMessage.append(message + "\n");
+                String time = getTime();
+                printWriter.println(clientsName + ": "+ message + " (" + time + ")");
+                frame.textFieldMyMessage.append(message + " (" + time + ")" + "\n");
                 frame.textFieldWriting.setText(null);
                 logger.info("client " + message);
             }
@@ -76,5 +78,19 @@ public class Client {
             }
         });
         receive.start();
+    }
+
+    public String getTime(){
+        int hour = LocalTime.now().getHour();
+        String strHour = Integer.toString(hour);
+        int minutes= LocalTime.now().getMinute();
+        String strMinutes;
+        if(minutes < 10){
+            strMinutes = "0" + Integer.toString(minutes);
+        }
+        else {
+            strMinutes = Integer.toString(minutes);
+        }
+        return  strHour + ":" + strMinutes;
     }
 }
